@@ -4,6 +4,7 @@ import { ContactForm } from "@/components/contact-form";
 import { InteractiveCard, Reveal } from "@/components/motion";
 import { contactOptions } from "@/lib/content";
 import { Card, Container, Eyebrow, Section } from "@/components/ui";
+import { ChatArt } from "@/components/section-art";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -15,13 +16,18 @@ export default function ContactPage() {
     <>
       <Section className="bg-[linear-gradient(135deg,#050806,#0c1713)]">
         <Container>
-          <Eyebrow>Ready to build your growth engine?</Eyebrow>
-          <h1 className="max-w-4xl text-5xl font-semibold tracking-tight text-white sm:text-6xl">
-            Send the goal, current state and service line you want to explore.
-          </h1>
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300">
-            Trillium Labs scopes pricing separately to your goals, benchmarked to the local market rather than international agency rates.
-          </p>
+          <div className="grid gap-10 lg:grid-cols-[1fr_0.6fr] lg:items-center">
+            <div>
+              <Eyebrow>Ready to build your growth engine?</Eyebrow>
+              <h1 className="max-w-4xl text-5xl font-semibold tracking-tight text-white sm:text-6xl">
+                Send the goal, current state and service line you want to explore.
+              </h1>
+              <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300">
+                Trillium Labs scopes pricing separately to your goals, benchmarked to the local market rather than international agency rates.
+              </p>
+            </div>
+            <ChatArt className="hidden aspect-[4/3] w-full lg:block" />
+          </div>
         </Container>
       </Section>
 

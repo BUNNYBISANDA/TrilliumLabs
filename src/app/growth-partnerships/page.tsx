@@ -3,6 +3,7 @@ import { CheckCircle2 } from "lucide-react";
 import { CtaBand } from "@/components/cta";
 import { InteractiveCard, Reveal } from "@/components/motion";
 import { Badge, Card, Container, Eyebrow, Section } from "@/components/ui";
+import { PulseArt } from "@/components/section-art";
 import { bundles } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -15,13 +16,18 @@ export default function GrowthPartnershipsPage() {
     <>
       <Section className="bg-[linear-gradient(135deg,#050806,#0c1713)]">
         <Container>
-          <Eyebrow>Bundled growth partnerships</Eyebrow>
-          <h1 className="max-w-4xl text-5xl font-semibold tracking-tight text-white sm:text-6xl">
-            One monthly partnership for the full-stack advantage.
-          </h1>
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300">
-            Bundle services into one coordinated growth engine with a dedicated point of contact, unified reporting and priority turnaround.
-          </p>
+          <div className="grid gap-10 lg:grid-cols-[1fr_0.6fr] lg:items-center">
+            <div>
+              <Eyebrow>Bundled growth partnerships</Eyebrow>
+              <h1 className="max-w-4xl text-5xl font-semibold tracking-tight text-white sm:text-6xl">
+                One monthly partnership for the full-stack advantage.
+              </h1>
+              <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300">
+                Bundle services into one coordinated growth engine with a dedicated point of contact, unified reporting and priority turnaround.
+              </p>
+            </div>
+            <PulseArt className="hidden aspect-[4/3] w-full lg:block" />
+          </div>
         </Container>
       </Section>
       <Section>

@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { CtaBand } from "@/components/cta";
 import { TierCard } from "@/components/service-card";
 import { Badge, Card, Container, Eyebrow, Pill, Section } from "@/components/ui";
+import { ServiceArt } from "@/components/section-art";
 import { getService, serviceSlugs, services } from "@/lib/content";
 
 export function generateStaticParams() {
@@ -47,7 +48,8 @@ export default async function ServiceDetailPage({ params }: PageProps<"/services
               <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300">{service.detail}</p>
             </div>
             <Card>
-              <Icon className="h-8 w-8 text-emerald-300" aria-hidden="true" />
+              <ServiceArt slug={service.slug} className="aspect-[4/3] w-full" />
+              <Icon className="mt-6 h-8 w-8 text-emerald-300" aria-hidden="true" />
               <h2 className="mt-6 text-2xl font-semibold text-white">{service.summary}</h2>
               <p className="mt-5 text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">
                 {service.engagement}

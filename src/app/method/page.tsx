@@ -5,6 +5,7 @@ import { CtaBand } from "@/components/cta";
 import { InteractiveCard } from "@/components/motion";
 import { ProcessTimeline } from "@/components/process";
 import { Card, Container, Eyebrow, Section } from "@/components/ui";
+import { PulseArt } from "@/components/section-art";
 
 export const metadata: Metadata = {
   title: "Method",
@@ -16,13 +17,18 @@ export default function MethodPage() {
     <>
       <Section className="bg-[linear-gradient(135deg,#050806,#0c1713)]">
         <Container>
-          <Eyebrow>How we work</Eyebrow>
-          <h1 className="max-w-4xl text-5xl font-semibold tracking-tight text-white sm:text-6xl">
-            Signal first. System second. Scale only when the market has answered.
-          </h1>
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300">
-            Every engagement starts at Signal, including for brands already running ads. Skipping it is how budget gets spent on angles the market was never going to reward.
-          </p>
+          <div className="grid gap-10 lg:grid-cols-[1fr_0.6fr] lg:items-center">
+            <div>
+              <Eyebrow>How we work</Eyebrow>
+              <h1 className="max-w-4xl text-5xl font-semibold tracking-tight text-white sm:text-6xl">
+                Signal first. System second. Scale only when the market has answered.
+              </h1>
+              <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300">
+                Every engagement starts at Signal, including for brands already running ads. Skipping it is how budget gets spent on angles the market was never going to reward.
+              </p>
+            </div>
+            <PulseArt className="hidden aspect-[4/3] w-full lg:block" />
+          </div>
         </Container>
       </Section>
       <Section>
