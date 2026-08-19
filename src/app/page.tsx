@@ -1,4 +1,4 @@
-import { CheckCircle2 } from "lucide-react";
+import { ArrowUpRight, CheckCircle2 } from "lucide-react";
 import { CtaBand } from "@/components/cta";
 import { HeroAmbient } from "@/components/hero-ambient";
 import { AnimatedNumber, FloatingGrid, InteractiveCard, Reveal, StaggerText } from "@/components/motion";
@@ -7,69 +7,106 @@ import { ServiceCard } from "@/components/service-card";
 import { ButtonLink, Card, Container, Eyebrow, Section } from "@/components/ui";
 import { advantages, heroMetrics, homeCapabilities, services, site } from "@/lib/content";
 
+const heroTicker = [
+  "PAID GROWTH",
+  "CREATIVE & VIDEO",
+  "WEBSITES",
+  "SOCIAL PRESENCE",
+  "AI AUTOMATION",
+  "REPORTING",
+];
+
 export default function Home() {
   return (
     <>
-      <section className="relative isolate overflow-hidden">
+      <section className="relative isolate flex min-h-[calc(100svh-4rem)] flex-col overflow-hidden">
         <HeroAmbient />
         <FloatingGrid />
-        <Container className="grid min-h-[calc(100svh-4rem)] gap-12 py-20 lg:grid-cols-[1.12fr_0.88fr] lg:items-center">
-          <Reveal>
-            <Eyebrow>Full-stack performance marketing / Sri Lanka</Eyebrow>
-            <h1 className="max-w-5xl text-5xl font-semibold leading-[1.02] tracking-tight text-white sm:text-6xl lg:text-7xl">
-              <StaggerText text="Every service a modern brand needs to win attention, convert it, and scale." />
+        <Container className="grid flex-1 gap-6 py-6 sm:py-10 lg:grid-cols-[1.08fr_0.92fr] lg:items-center lg:gap-10 lg:py-12">
+          <Reveal className="max-w-4xl">
+            <div className="mb-5 inline-flex items-center gap-3 rounded-full border border-emerald-300/25 bg-emerald-300/[0.07] px-4 py-2 sm:mb-7">
+              <span className="h-2 w-2 rounded-full bg-emerald-300 shadow-[0_0_22px_rgba(110,231,183,0.9)]" />
+              <span className="text-xs font-semibold uppercase tracking-[0.22em] text-emerald-200">
+                Full-stack performance marketing / Sri Lanka
+              </span>
+            </div>
+
+            <h1 className="max-w-5xl text-[2.65rem] font-semibold leading-[0.98] tracking-tight text-white sm:text-6xl lg:text-7xl">
+              <StaggerText text="Win attention." />
+              <StaggerText text="Convert it." />
+              <span className="block">
+                <span className="text-emerald-300">Then scale</span>{" "}
+                <span className="font-normal italic text-emerald-200">everything.</span>
+              </span>
             </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">
-              Trillium Labs connects paid growth, creative, websites, social presence and AI automation under one accountable team, without the international agency price tag.
+
+            <p className="mt-5 max-w-2xl text-base leading-7 text-slate-300 sm:mt-6 sm:text-lg sm:leading-8">
+              Paid growth, creative, websites, social presence and AI automation, one accountable team, without the international agency price tag.
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <ButtonLink href="/contact">Start an inquiry</ButtonLink>
+
+            <div className="mt-6 flex flex-row gap-3 sm:mt-7">
+              <ButtonLink href="/contact">Start inquiry</ButtonLink>
               <ButtonLink href="/services" variant="secondary">
                 Explore services
               </ButtonLink>
             </div>
+
+            <div className="mt-7 grid grid-cols-3 border-l border-emerald-300/15 sm:mt-9">
+              {heroMetrics.map((metric) => (
+                <div key={metric.label} className="min-w-0 border-r border-emerald-300/15 px-3 py-2 sm:px-6 sm:first:pl-5">
+                  <p className="text-3xl font-bold text-white sm:text-3xl">
+                    <AnimatedNumber value={metric.value} />
+                  </p>
+                  <p className="mt-1 text-[0.62rem] uppercase tracking-[0.14em] text-slate-500 sm:text-xs sm:tracking-[0.16em]">{metric.label}</p>
+                </div>
+              ))}
+            </div>
           </Reveal>
 
-          <Reveal delay={0.12}>
-            <div className="grid gap-4">
-              <InteractiveCard>
-                <div className="rounded-lg border border-white/10 bg-white/[0.04] p-5">
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-200">
-                  The full-stack model
-                </p>
-                <div className="mt-6 grid gap-4">
-                  {homeCapabilities.map((capability) => {
-                    const Icon = capability.icon;
-                    return (
-                      <div key={capability.label} className="flex gap-4 border-t border-white/10 pt-4 first:border-t-0 first:pt-0">
-                        <span className="grid h-10 w-10 shrink-0 place-items-center rounded-md bg-emerald-300/12 text-emerald-200">
-                          <Icon className="h-5 w-5" aria-hidden="true" />
-                        </span>
-                        <div>
-                          <h2 className="font-semibold text-white">{capability.label}</h2>
-                          <p className="mt-1 text-sm leading-6 text-slate-400">{capability.body}</p>
-                        </div>
+          <Reveal delay={0.12} className="lg:justify-self-end">
+            <div className="grid w-full max-w-2xl gap-2.5 sm:gap-4 lg:grid-cols-1">
+              <p className="pl-1 text-xs font-semibold uppercase tracking-[0.24em] text-emerald-300 lg:col-auto">
+                The full-stack model
+              </p>
+              <div className="grid grid-cols-3 gap-2 lg:grid-cols-1 lg:gap-4">
+              {homeCapabilities.map((capability, index) => {
+                const Icon = capability.icon;
+                return (
+                  <InteractiveCard key={capability.label}>
+                    <div className="flex min-h-20 flex-col items-center justify-center gap-2 rounded-[1.1rem] border border-white/10 bg-[linear-gradient(150deg,rgba(20,36,28,0.76),rgba(8,16,12,0.86))] p-3 text-center backdrop-blur-xl transition group-hover:border-emerald-300/45 sm:gap-5 sm:p-5 lg:min-h-0 lg:flex-row lg:items-start lg:justify-start lg:p-6 lg:text-left lg:group-hover:-translate-x-1">
+                      <span className="text-[0.65rem] font-semibold text-emerald-300 sm:text-sm lg:pt-1">0{index + 1}</span>
+                      <span className="grid h-9 w-9 shrink-0 place-items-center rounded-md bg-emerald-300/12 text-emerald-200 sm:h-11 sm:w-11">
+                        <Icon className="h-5 w-5" aria-hidden="true" />
+                      </span>
+                      <div className="min-w-0 flex-1">
+                        <h2 className="text-xs font-semibold text-white sm:text-xl">{capability.label}</h2>
+                        <p className="mt-1 hidden text-xs leading-5 text-slate-400 sm:mt-2 sm:block sm:text-sm sm:leading-6">
+                          {capability.body}
+                        </p>
                       </div>
-                    );
-                  })}
-                </div>
-                </div>
-              </InteractiveCard>
-              <div className="grid grid-cols-3 gap-3">
-                {heroMetrics.map((metric) => (
-                  <InteractiveCard key={metric.label}>
-                    <div className="rounded-lg border border-white/10 bg-black/25 p-4">
-                    <p className="text-3xl font-semibold text-white">
-                      <AnimatedNumber value={metric.value} />
-                    </p>
-                    <p className="mt-1 text-xs uppercase tracking-[0.16em] text-slate-500">{metric.label}</p>
+                      <ArrowUpRight className="hidden h-5 w-5 shrink-0 text-emerald-300/40 transition group-hover:text-emerald-200 lg:mt-1 lg:block" />
                     </div>
                   </InteractiveCard>
-                ))}
+                );
+              })}
               </div>
             </div>
           </Reveal>
         </Container>
+
+        <div className="relative z-10 border-t border-emerald-300/10 bg-black/25 py-2 backdrop-blur-sm">
+          <div className="flex w-max animate-[ticker_26s_linear_infinite]">
+            {[...heroTicker, ...heroTicker, ...heroTicker, ...heroTicker].map((item, index) => (
+              <div
+                key={`${item}-${index}`}
+                className="flex items-center gap-7 whitespace-nowrap px-7 text-sm font-semibold uppercase tracking-[0.18em] text-slate-500"
+              >
+                <span>{item}</span>
+                <span className="text-emerald-300">+</span>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
 
       <Section>

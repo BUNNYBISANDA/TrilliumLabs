@@ -58,3 +58,13 @@ option {
     transition-duration: 0.01ms !important;
   }
 }
+
+@keyframes ticker {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
