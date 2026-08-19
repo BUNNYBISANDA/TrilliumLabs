@@ -156,7 +156,7 @@ export function InteractiveCard({
         style={{ background }}
       />
       {beam !== "none" ? <BorderBeam persistent={beam === "always"} /> : null}
-      <div className="relative">{children}</div>
+      <div className="relative h-full">{children}</div>
     </motion.div>
   );
 }
