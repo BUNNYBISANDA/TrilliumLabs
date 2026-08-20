@@ -11,12 +11,12 @@ export function ServiceCard({ service }: { service: Service }) {
   return (
     <Link href={servicePath(service.slug)} className="group block h-full">
       <InteractiveCard className="h-full">
-        <Card className="flex h-full min-h-[31rem] flex-col transition duration-300 group-hover:border-emerald-300/45 group-hover:bg-white/[0.055]">
+        <Card className="flex h-full min-h-[31rem] flex-col transition duration-300 group-hover:border-[var(--page-accent,#6ee7b7)]/45 group-hover:bg-white/[0.055]">
           <div className="mb-6 flex items-center justify-between gap-4">
-            <span className="grid h-11 w-11 place-items-center rounded-md bg-emerald-300/12 text-emerald-200 transition group-hover:scale-110">
+            <span className="grid h-11 w-11 place-items-center rounded-md bg-[var(--page-accent,#6ee7b7)]/12 text-[var(--page-secondary,#a7f3d0)] transition group-hover:scale-110">
               <Icon className="h-5 w-5" aria-hidden="true" />
             </span>
-            <ArrowRight className="h-4 w-4 text-slate-500 transition group-hover:translate-x-1 group-hover:text-emerald-200" />
+            <ArrowRight className="h-4 w-4 text-slate-500 transition group-hover:translate-x-1 group-hover:text-[var(--page-secondary,#a7f3d0)]" />
           </div>
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">{service.category}</p>
           <h3 className="mt-3 text-xl font-semibold text-white">{service.shortTitle}</h3>
@@ -24,7 +24,7 @@ export function ServiceCard({ service }: { service: Service }) {
           <div className="mt-6 flex flex-wrap gap-2">
             {service.outcomes.slice(0, 2).map((outcome) => (
               <span key={outcome} className="inline-flex items-center gap-1 text-xs text-slate-300">
-                <Check className="h-3.5 w-3.5 text-emerald-300" aria-hidden="true" />
+                <Check className="h-3.5 w-3.5 text-[var(--page-accent,#6ee7b7)]" aria-hidden="true" />
                 {outcome}
               </span>
             ))}

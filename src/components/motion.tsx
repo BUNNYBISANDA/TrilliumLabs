@@ -49,11 +49,12 @@ export function Reveal({ children, className, delay = 0 }: RevealProps) {
 
 export function StaggerText({ text, className }: { text: string; className?: string }) {
   const words = text.split(" ");
+  const reduceMotion = useReducedMotion();
 
   return (
     <motion.span
       aria-label={text}
-      initial={false}
+      initial={reduceMotion ? false : "hidden"}
       animate="visible"
       variants={{
         visible: { transition: { staggerChildren: motionTheme.stagger.tight } },
@@ -134,7 +135,7 @@ export function InteractiveCard({
   const reduceMotion = useReducedMotion();
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-  const background = useMotionTemplate`radial-gradient(360px circle at ${mouseX}px ${mouseY}px, rgba(110, 231, 183, 0.16), transparent 44%)`;
+  const background = useMotionTemplate`radial-gradient(360px circle at ${mouseX}px ${mouseY}px, color-mix(in srgb, var(--page-accent, #6ee7b7) 16%, transparent), transparent 44%)`;
 
   function handleMove(event: MouseEvent<HTMLDivElement>) {
     const rect = event.currentTarget.getBoundingClientRect();
@@ -173,7 +174,7 @@ export function BorderBeam({ persistent = false }: { persistent?: boolean }) {
       )}
       style={{
         background:
-          "conic-gradient(from 0deg, transparent, transparent, rgba(110,231,183,0.8), transparent, transparent)",
+          "conic-gradient(from 0deg, transparent, transparent, color-mix(in srgb, var(--page-accent, #6ee7b7) 80%, transparent), transparent, transparent)",
         padding: 1,
         mask: "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
         WebkitMask: "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",

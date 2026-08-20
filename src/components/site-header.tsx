@@ -7,11 +7,14 @@ import { FlaskConical, Mail, Menu, X } from "lucide-react";
 import { navigation, site } from "@/lib/content";
 import { Container } from "@/components/ui";
 import { AnimatePresence, motion, motionTheme } from "@/components/motion";
+import { getPaletteForPath, paletteStyle } from "@/components/page-theme";
 import { cn } from "@/lib/utils";
 
 export function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const palette = getPaletteForPath(pathname);
+  const themeStyle = palette ? paletteStyle(palette) : undefined;
 
   function handleLogoClick(event: MouseEvent<HTMLAnchorElement>) {
     if (pathname === "/") {
@@ -33,7 +36,10 @@ export function SiteHeader() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-[#050806]/85 backdrop-blur-xl">
+    <header
+      style={themeStyle}
+      className="sticky top-0 z-50 border-b border-white/10 bg-[var(--page-bg,#050806)]/85 font-[family-name:var(--page-font-sans,inherit)] backdrop-blur-xl transition-colors"
+    >
       <Container className="flex h-16 items-center justify-between gap-5">
         <Link
           href="/"
@@ -41,12 +47,12 @@ export function SiteHeader() {
           className="flex items-center gap-3"
           aria-label="Trillium Labs home"
         >
-          <span className="grid h-9 w-9 place-items-center rounded-md bg-emerald-300 text-slate-950">
+          <span className="grid h-9 w-9 place-items-center rounded-md bg-[var(--page-accent,#6ee7b7)] text-slate-950">
             <FlaskConical className="h-5 w-5" aria-hidden="true" />
           </span>
           <span className="leading-none">
             <span className="block text-sm font-bold uppercase tracking-[0.22em] text-white">Trillium</span>
-            <span className="block text-[0.65rem] font-semibold uppercase tracking-[0.34em] text-emerald-200">
+            <span className="block text-[0.65rem] font-semibold uppercase tracking-[0.34em] text-[var(--page-secondary,#a7f3d0)]">
               Labs
             </span>
           </span>
@@ -61,7 +67,7 @@ export function SiteHeader() {
                 aria-current={active ? "page" : undefined}
                 className={cn(
                   "rounded-md px-3 py-2 text-sm font-medium transition hover:bg-white/5 hover:text-white",
-                  active ? "bg-emerald-300/10 text-emerald-200" : "text-slate-300",
+                  active ? "bg-[var(--page-accent,#6ee7b7)]/10 text-[var(--page-secondary,#a7f3d0)]" : "text-slate-300",
                 )}
               >
                 {item.label}
@@ -72,7 +78,7 @@ export function SiteHeader() {
         <div className="flex items-center gap-2">
           <a
             href={`mailto:${site.email}?subject=Trillium%20Labs%20project%20inquiry`}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-white/15 text-slate-200 transition hover:border-emerald-300/70 hover:text-emerald-200 md:w-auto md:gap-2 md:px-4"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-white/15 text-slate-200 transition hover:border-[var(--page-accent,#6ee7b7)]/70 hover:text-[var(--page-secondary,#a7f3d0)] md:w-auto md:gap-2 md:px-4"
             aria-label="Email Trillium Labs"
             title="Email Trillium Labs"
           >
@@ -82,7 +88,7 @@ export function SiteHeader() {
           <button
             type="button"
             onClick={() => setOpen((value) => !value)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-white/15 text-slate-200 transition hover:border-emerald-300/70 hover:text-emerald-200 md:hidden"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-white/15 text-slate-200 transition hover:border-[var(--page-accent,#6ee7b7)]/70 hover:text-[var(--page-secondary,#a7f3d0)] md:hidden"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             aria-controls="mobile-nav"
@@ -100,7 +106,7 @@ export function SiteHeader() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={motionTheme.transitions.ui}
-            className="overflow-hidden border-t border-white/10 bg-[#050806] md:hidden"
+            className="overflow-hidden border-t border-white/10 bg-[var(--page-bg,#050806)] md:hidden"
           >
             <nav aria-label="Mobile navigation" className="flex flex-col px-5 py-3 sm:px-6">
               {navigation.map((item) => {
@@ -113,7 +119,7 @@ export function SiteHeader() {
                     aria-current={active ? "page" : undefined}
                     className={cn(
                       "rounded-md px-2 py-3 text-base font-medium transition hover:bg-white/5 hover:text-white",
-                      active ? "text-emerald-200" : "text-slate-200",
+                      active ? "text-[var(--page-secondary,#a7f3d0)]" : "text-slate-200",
                     )}
                   >
                     {item.label}

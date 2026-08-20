@@ -41,3 +41,10 @@ yarn-error.log*
 next-env.d.ts
 
 .vercel
+
+# local harness / tooling artifacts
+.claude/
+trillium-labs-site/
+trillium-labs.vercel.app-audit/
+contact-email-flow-desktop.png
+contact-email-flow-mobile.png

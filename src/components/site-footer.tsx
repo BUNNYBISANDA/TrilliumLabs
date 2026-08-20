@@ -2,15 +2,22 @@
 
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
+import { usePathname } from "next/navigation";
 import { ArrowUpRight, Check, Mail } from "lucide-react";
 import { AnimatePresence, InteractiveCard, motion, motionTheme } from "@/components/motion";
 import { Container } from "@/components/ui";
+import { getPaletteForPath, paletteStyle } from "@/components/page-theme";
 import { currentYear, navigation, services, site } from "@/lib/content";
+import { hexToRgb } from "@/lib/utils";
 
 const wordmark = "TRILLIUM LABS";
 
 export function SiteFooter() {
   const [status, setStatus] = useState<"idle" | "sent">("idle");
+  const pathname = usePathname();
+  const palette = getPaletteForPath(pathname);
+  const themeStyle = palette ? paletteStyle(palette) : undefined;
+  const glowColor = hexToRgb(palette?.accent ?? "#6ee7b7");
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -30,10 +37,13 @@ export function SiteFooter() {
   }
 
   return (
-    <footer className="relative overflow-hidden border-t border-white/10 bg-[#050806]">
+    <footer
+      style={themeStyle}
+      className="relative overflow-hidden border-t border-white/10 bg-[var(--page-bg,#050806)] font-[family-name:var(--page-font-sans,inherit)] transition-colors"
+    >
       <motion.div
         aria-hidden="true"
-        className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-emerald-300/70 to-transparent"
+        className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[var(--page-accent,#6ee7b7)]/70 to-transparent"
         initial={false}
         whileInView={{ scaleX: [0.2, 1], opacity: [0.2, 1] }}
         viewport={{ once: true }}
@@ -41,14 +51,14 @@ export function SiteFooter() {
       />
 
       <Container className="py-14">
-        <LightWordmark text={wordmark} />
+        <LightWordmark text={wordmark} glowColor={glowColor} />
 
         <div className="grid gap-8 lg:grid-cols-[1.15fr_0.75fr_0.75fr_1fr]">
           <div>
             <p className="text-lg font-semibold text-white">{site.name}</p>
             <p className="mt-3 max-w-md text-sm leading-6 text-slate-400">{site.description}</p>
             <a
-              className="group mt-5 inline-flex items-center gap-2 text-sm font-semibold text-emerald-200"
+              className="group mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[var(--page-secondary,#a7f3d0)]"
               href={`mailto:${site.email}`}
             >
               {site.email}
@@ -68,7 +78,7 @@ export function SiteFooter() {
           <InteractiveCard beam="hover">
             <div className="rounded-lg border border-white/10 bg-white/[0.035] p-5">
               <div className="flex items-center gap-3">
-                <span className="grid h-10 w-10 place-items-center rounded-md bg-emerald-300/10 text-emerald-200">
+                <span className="grid h-10 w-10 place-items-center rounded-md bg-[var(--page-accent,#6ee7b7)]/10 text-[var(--page-secondary,#a7f3d0)]">
                   <Mail className="h-5 w-5" />
                 </span>
                 <div>
@@ -81,11 +91,11 @@ export function SiteFooter() {
                   name="email"
                   type="email"
                   placeholder="you@company.com"
-                  className="min-h-11 rounded-md border border-white/10 bg-black/30 px-3 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-emerald-300"
+                  className="min-h-11 rounded-md border border-white/10 bg-black/30 px-3 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-[var(--page-accent,#6ee7b7)]"
                 />
                 <button
                   type="submit"
-                  className="relative min-h-11 overflow-hidden rounded-md bg-emerald-300 px-4 text-sm font-bold text-slate-950 transition hover:bg-emerald-200"
+                  className="relative min-h-11 overflow-hidden rounded-md bg-[var(--page-accent,#6ee7b7)] px-4 text-sm font-bold text-slate-950 transition hover:bg-[var(--page-secondary,#a7f3d0)]"
                 >
                   <AnimatePresence mode="wait" initial={false}>
                     <motion.span
@@ -121,7 +131,9 @@ export function SiteFooter() {
   );
 }
 
-function LightWordmark({ text }: { text: string }) {
+function LightWordmark({ text, glowColor }: { text: string; glowColor: [number, number, number] }) {
+  const [r, g, b] = glowColor;
+
   return (
     <motion.div
       aria-label={text}
@@ -145,13 +157,13 @@ function LightWordmark({ text }: { text: string }) {
                 : {
                     color: [
                       "rgba(255,255,255,0.055)",
-                      "rgba(110,231,183,0.95)",
+                      `rgba(${r},${g},${b},0.95)`,
                       "rgba(255,255,255,0.075)",
                     ],
                     textShadow: [
-                      "0 0 0 rgba(110,231,183,0)",
-                      "0 0 34px rgba(110,231,183,0.85)",
-                      "0 0 0 rgba(110,231,183,0)",
+                      `0 0 0 rgba(${r},${g},${b},0)`,
+                      `0 0 34px rgba(${r},${g},${b},0.85)`,
+                      `0 0 0 rgba(${r},${g},${b},0)`,
                     ],
                   },
           }}
@@ -187,7 +199,7 @@ function FooterLinks({
             href={item.href}
             className="group inline-flex w-fit items-center gap-2 text-sm text-slate-400 transition hover:text-white"
           >
-            <span className="h-px w-0 bg-emerald-300 transition-all group-hover:w-4" />
+            <span className="h-px w-0 bg-[var(--page-accent,#6ee7b7)] transition-all group-hover:w-4" />
             {item.label}
           </Link>
         ))}

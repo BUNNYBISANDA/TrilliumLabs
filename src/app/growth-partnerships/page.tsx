@@ -1,69 +1,78 @@
 import type { Metadata } from "next";
-import { CheckCircle2 } from "lucide-react";
-import { CtaBand } from "@/components/cta";
-import { InteractiveCard, Reveal } from "@/components/motion";
-import { Badge, Card, Container, Eyebrow, Section } from "@/components/ui";
-import { PulseArt } from "@/components/section-art";
-import { bundles } from "@/lib/content";
+import { Reveal } from "@/components/motion";
+import { PagePalette, PageTheme, pagePalettes } from "@/components/page-theme";
+import {
+  InstrumentBundleRows,
+  InstrumentCta,
+  InstrumentSectionHead,
+  InstrumentTermsGrid,
+  InstrumentTicker,
+} from "@/components/instrument";
+import { Container, Section } from "@/components/ui";
+import { bundles, terms } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Growth Partnerships",
   description: "Bundled Trillium Labs service partnerships with one team, one strategy and one invoice.",
 };
 
+const palette: PagePalette = pagePalettes.partnerships;
+
+const tickerItems = [
+  ...bundles.map((bundle) => `${bundle.name} · ${bundle.positioning}`),
+  "MODEL · ONE TEAM · ONE STRATEGY · ONE INVOICE",
+  "PRICING · SCOPED PER CLIENT · BENCHMARKED TO THE 2026 SRI LANKAN MARKET",
+];
+
 export default function GrowthPartnershipsPage() {
   return (
-    <>
-      <Section className="bg-[linear-gradient(135deg,#050806,#0c1713)]">
+    <PageTheme palette={palette}>
+      <Section
+        className="border-b border-[var(--page-border,#22242A)] pb-16"
+        style={{
+          backgroundImage:
+            "radial-gradient(1200px 600px at 85% -10%, rgba(242,246,255,0.03), transparent 60%)",
+        }}
+      >
         <Container>
-          <div className="grid gap-10 lg:grid-cols-[1fr_0.6fr] lg:items-center">
-            <div>
-              <Eyebrow>Bundled growth partnerships</Eyebrow>
-              <h1 className="max-w-4xl text-5xl font-semibold tracking-tight text-white sm:text-6xl">
-                One monthly partnership for the full-stack advantage.
-              </h1>
-              <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300">
-                Bundle services into one coordinated growth engine with a dedicated point of contact, unified reporting and priority turnaround.
-              </p>
-            </div>
-            <PulseArt className="hidden aspect-[4/3] w-full lg:block" />
-          </div>
+          <Reveal>
+            <p className="flex items-center gap-3 font-[family-name:var(--page-font-mono,var(--font-mono))] text-[11px] uppercase tracking-[0.28em] text-[var(--page-muted,#8A8F9C)]">
+              <span className="h-px w-8 bg-[var(--page-accent,#FFA028)]" aria-hidden="true" />
+              Bundled growth partnerships
+            </p>
+            <h1 className="mt-7 max-w-4xl text-[clamp(40px,7vw,84px)] font-extrabold leading-[0.98] tracking-[-0.03em] text-[var(--page-highlight,#F2F6FF)]">
+              One monthly partnership for the full-stack advantage.
+            </h1>
+            <p className="mt-6 max-w-2xl text-[17px] font-light text-[var(--page-muted,#8A8F9C)]">
+              One team, one strategy, one invoice — at a partner rate. Every bundle includes a dedicated point of
+              contact, unified reporting and priority turnaround.
+            </p>
+          </Reveal>
         </Container>
       </Section>
+
+      <InstrumentTicker items={tickerItems} />
+
       <Section>
         <Container>
-          <div className="grid auto-rows-fr gap-5 lg:grid-cols-3">
-            {bundles.map((bundle, index) => (
-              <Reveal key={bundle.name} delay={index * 0.08} className="h-full">
-                <InteractiveCard className="h-full">
-                  <Card className="flex h-full min-h-[28rem] flex-col">
-                    <div className="flex min-h-16 items-start justify-between gap-4">
-                      <div>
-                        <h2 className="text-2xl font-semibold text-white">{bundle.name}</h2>
-                        <p className="mt-2 text-slate-400">{bundle.positioning}</p>
-                      </div>
-                      {bundle.badge ? <Badge>{bundle.badge}</Badge> : null}
-                    </div>
-                    <ul className="mt-8 space-y-3">
-                      {bundle.included.map((item) => (
-                        <li key={item} className="flex gap-3 text-sm text-slate-300">
-                          <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-300" aria-hidden="true" />
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                    <p className="mt-8 border-t border-white/10 pt-5 text-sm leading-6 text-slate-400">
-                      <span className="font-semibold text-white">Best for: </span>
-                      {bundle.bestFor}
-                    </p>
-                  </Card>
-                </InteractiveCard>
-              </Reveal>
-            ))}
-          </div>
+          <InstrumentSectionHead
+            n="01"
+            label="Bundled growth partnerships"
+            title="Everything is stronger together."
+            note="One monthly partnership — one team, one strategy, one invoice. Every bundle includes a dedicated point of contact, unified reporting and priority turnaround."
+          />
+          <InstrumentBundleRows bundles={bundles} />
         </Container>
       </Section>
-      <CtaBand />
-    </>
+
+      <Section>
+        <Container>
+          <InstrumentSectionHead n="02" label="Terms & notes" title="No surprises. In writing." />
+          <InstrumentTermsGrid terms={terms} />
+        </Container>
+      </Section>
+
+      <InstrumentCta n="03" />
+    </PageTheme>
   );
 }

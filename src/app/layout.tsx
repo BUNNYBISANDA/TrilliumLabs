@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist_Mono, IBM_Plex_Mono, Inter, Poppins } from "next/font/google";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { ScrollProgress } from "@/components/motion";
@@ -7,13 +7,26 @@ import { PageCurtain } from "@/components/page-curtain";
 import { site } from "@/lib/content";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+// Used only on pages that opt into the "Instrument" brand system (Services, Partnerships).
+const poppins = Poppins({
+  variable: "--font-poppins",
+  weight: ["300", "400", "500", "600", "700", "800"],
+  subsets: ["latin"],
+});
+
+const ibmPlexMono = IBM_Plex_Mono({
+  variable: "--font-plex-mono",
+  weight: ["400", "500"],
   subsets: ["latin"],
 });
 
@@ -58,7 +71,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       data-scroll-behavior="smooth"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${inter.variable} ${geistMono.variable} ${poppins.variable} ${ibmPlexMono.variable} h-full antialiased`}
     >
       <body className="min-h-full bg-[#050806] text-slate-100">
         <ScrollProgress />

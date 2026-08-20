@@ -4,7 +4,7 @@ import { ButtonLink, Container } from "@/components/ui";
 
 export function CtaBand() {
   return (
-    <section className="border-y border-emerald-300/20 bg-emerald-300 text-slate-950">
+    <section className="border-y border-[var(--page-accent,#6ee7b7)]/20 bg-[var(--page-accent,#6ee7b7)] text-slate-950">
       <InteractiveCard>
         <Container className="grid gap-6 py-12 md:grid-cols-[1fr_auto] md:items-center">
           <div>

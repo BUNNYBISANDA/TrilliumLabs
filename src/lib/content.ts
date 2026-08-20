@@ -404,6 +404,33 @@ export const bundles: Bundle[] = [
   },
 ];
 
+export const terms = [
+  {
+    title: "Currency & tax",
+    body: "All prices are quoted in LKR, exclusive of any applicable taxes.",
+  },
+  {
+    title: "Ad spend & third-party costs",
+    body: "Meta ad budget, hosting, domains, AI tool licences and paid stock are not included, billed at cost or paid directly by the client.",
+  },
+  {
+    title: "Retainers",
+    body: "Billed monthly, with a recommended minimum three-month commitment so optimisation can compound.",
+  },
+  {
+    title: "Projects",
+    body: "Billed 50% on confirmation, 50% on delivery. Larger builds can be staged.",
+  },
+  {
+    title: "Revisions",
+    body: "Rounds beyond those stated, and work outside the agreed scope, are quoted separately.",
+  },
+  {
+    title: "Pricing",
+    body: "Market-benchmarked and scoped per client, adjusted for size, sector and competition. Full pricing shared on the call.",
+  },
+];
+
 export const advantages = [
   {
     title: "No agency layers",

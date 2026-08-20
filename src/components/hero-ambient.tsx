@@ -7,10 +7,17 @@ export function HeroAmbient() {
 
   return (
     <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-      <div className="absolute inset-0 bg-[linear-gradient(135deg,#050806_0%,#07110d_48%,#0d1715_100%)]" />
+      <div
+        className="absolute inset-0"
+        style={{
+          backgroundImage:
+            "linear-gradient(135deg, var(--page-bg, #050806) 0%, color-mix(in srgb, var(--page-surface, #07110d) 60%, var(--page-bg, #050806)) 48%, color-mix(in srgb, var(--page-surface, #0d1715) 85%, transparent) 100%)",
+        }}
+      />
       <motion.div
         aria-hidden="true"
-        className="absolute h-[30rem] w-[30rem] rounded-full bg-emerald-300/18 blur-3xl"
+        className="absolute h-[30rem] w-[30rem] rounded-full blur-3xl"
+        style={{ background: "color-mix(in srgb, var(--page-accent, #6ee7b7) 18%, transparent)" }}
         initial={{ x: "-12%", y: "-12%", scale: 0.92 }}
         animate={
           reduceMotion
@@ -25,7 +32,8 @@ export function HeroAmbient() {
       />
       <motion.div
         aria-hidden="true"
-        className="absolute h-[20rem] w-[20rem] rounded-full bg-teal-300/10 blur-3xl"
+        className="absolute h-[20rem] w-[20rem] rounded-full blur-3xl"
+        style={{ background: "color-mix(in srgb, var(--page-secondary, #fcd34d) 12%, transparent)" }}
         initial={{ right: "8%", top: "16%" }}
         animate={
           reduceMotion
@@ -38,7 +46,10 @@ export function HeroAmbient() {
         }
         transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
       />
-      <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#050806] to-transparent" />
+      <div
+        className="absolute inset-x-0 bottom-0 h-32"
+        style={{ backgroundImage: "linear-gradient(to top, var(--page-bg, #050806), transparent)" }}
+      />
     </div>
   );
 }
