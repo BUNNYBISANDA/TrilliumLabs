@@ -6,9 +6,9 @@ import { AnimatedNumber, FloatingGrid, InteractiveCard, Reveal, StaggerText } fr
 import { PagePalette, PageTheme, pagePalettes } from "@/components/page-theme";
 import { ProcessTimeline } from "@/components/process";
 import { ProofPanel } from "@/components/proof-panel";
-import { ServiceCard } from "@/components/service-card";
+import { ServicesPentagonLoader } from "@/components/services-pentagon-loader";
 import { ButtonLink, Card, Container, Eyebrow, Section } from "@/components/ui";
-import { advantages, heroMetrics, homeCapabilities, services, site } from "@/lib/content";
+import { advantages, heroMetrics, homeCapabilities, site } from "@/lib/content";
 
 const capabilityTones = ["amber", "emerald", "sky"] as const;
 
@@ -52,7 +52,7 @@ export default function Home() {
             </p>
 
             <div className="mt-6 flex flex-row gap-3 sm:mt-7">
-              <ButtonLink href="/contact">Start inquiry</ButtonLink>
+              <ButtonLink href="/contact">Scope it</ButtonLink>
               <ButtonLink href="/services" variant="secondary">
                 Explore services
               </ButtonLink>
@@ -82,8 +82,8 @@ export default function Home() {
               {homeCapabilities.map((capability, index) => {
                 const Icon = capability.icon;
                 return (
-                  <InteractiveCard key={capability.label}>
-                    <div className="flex min-h-20 flex-col items-center justify-center gap-2 rounded-[1.1rem] border border-white/10 bg-[linear-gradient(150deg,rgba(20,36,28,0.76),rgba(8,16,12,0.86))] p-3 text-center backdrop-blur-xl transition group-hover:border-[var(--page-accent,#6ee7b7)]/45 sm:gap-5 sm:p-5 lg:min-h-0 lg:flex-row lg:items-start lg:justify-start lg:p-6 lg:text-left lg:group-hover:-translate-x-1">
+                  <InteractiveCard key={capability.label} className="h-full">
+                    <div className="flex h-full min-h-20 flex-col items-center justify-center gap-2 rounded-[1.1rem] border border-white/10 bg-[linear-gradient(150deg,rgba(20,36,28,0.76),rgba(8,16,12,0.86))] p-3 text-center backdrop-blur-xl transition duration-[220ms] ease-out group-hover:border-white/20 group-hover:bg-white/[0.05] sm:gap-5 sm:p-5 lg:min-h-0 lg:flex-row lg:items-start lg:justify-start lg:p-6 lg:text-left">
                       <span className="text-[0.65rem] font-semibold text-[var(--page-accent,#6ee7b7)] sm:text-sm lg:pt-1">0{index + 1}</span>
                       <GlossyIcon icon={Icon} tone={capabilityTones[index]} className="h-9 w-9 sm:h-11 sm:w-11" />
                       <div className="min-w-0 flex-1">
@@ -132,7 +132,7 @@ export default function Home() {
             {["Split ownership", "Creative bottleneck", "Leaks after the click", "The agency premium"].map((item, index) => (
               <Reveal key={item} delay={index * 0.08} className="h-full">
                 <InteractiveCard className="h-full">
-                  <Card>
+                  <Card className="flex h-full flex-col">
                     <CheckCircle2 className="h-5 w-5 text-[var(--page-accent,#6ee7b7)]" aria-hidden="true" />
                     <h3 className="mt-5 text-lg font-semibold text-[var(--page-highlight,#f8fafc)]">{item}</h3>
                     <p className="mt-3 text-sm leading-6 text-slate-400">
@@ -148,21 +148,24 @@ export default function Home() {
 
       <Section className="bg-white/[0.025]">
         <Container>
-          <Reveal className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-            <div className="max-w-2xl">
+          <div className="grid items-center gap-12 lg:grid-cols-[1fr_0.85fr]">
+            <Reveal>
               <Eyebrow>Services</Eyebrow>
-              <h2 className="text-4xl font-semibold tracking-tight text-[var(--page-highlight,#f8fafc)]">One team replaces five vendors.</h2>
-            </div>
-            <ButtonLink href="/services" variant="secondary">
-              View all services
-            </ButtonLink>
-          </Reveal>
-          <div className="mt-10 grid auto-rows-fr gap-5 md:grid-cols-2 lg:grid-cols-5">
-            {services.map((service, index) => (
-              <Reveal key={service.slug} delay={index * 0.06} className="h-full">
-                <ServiceCard service={service} />
-              </Reveal>
-            ))}
+              <h2 className="text-4xl font-semibold tracking-tight text-[var(--page-highlight,#f8fafc)] sm:text-5xl">
+                One team replaces five vendors.
+              </h2>
+              <p className="mt-5 max-w-xl text-lg leading-8 text-slate-400">
+                Five connected service lines orbiting one strategy. Hover a point to preview a service, click to open its full scope and tiers.
+              </p>
+              <div className="mt-8">
+                <ButtonLink href="/services" variant="secondary">
+                  View all services
+                </ButtonLink>
+              </div>
+            </Reveal>
+            <Reveal delay={0.12}>
+              <ServicesPentagonLoader />
+            </Reveal>
           </div>
         </Container>
       </Section>
@@ -215,7 +218,7 @@ export default function Home() {
                 return (
                   <Reveal key={advantage.title} delay={index * 0.08} className="h-full">
                     <InteractiveCard className="h-full">
-                      <Card>
+                      <Card className="flex h-full flex-col">
                         <Icon className="h-5 w-5 text-[var(--page-accent,#6ee7b7)]" aria-hidden="true" />
                         <h3 className="mt-5 text-lg font-semibold text-[var(--page-highlight,#f8fafc)]">{advantage.title}</h3>
                         <p className="mt-3 text-sm leading-6 text-slate-400">{advantage.body}</p>

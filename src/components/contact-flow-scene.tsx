@@ -232,10 +232,10 @@ export function ContactFlowScene({ className }: { className?: string }) {
   }, []);
 
   return (
-    <div className={cn("relative min-h-[18rem] overflow-hidden lg:min-h-[22rem]", className)} aria-label="Animated emails moving through an inquiry flow">
+    <div className={cn("relative min-h-[18rem] overflow-hidden lg:min-h-[22rem]", className)} aria-label="Animated emails moving through a scoping flow">
       <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
       <div className="pointer-events-none absolute left-5 top-5 rounded-full border border-[var(--page-accent,#f1b7aa)]/35 bg-black/20 px-3 py-1 text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-[var(--page-secondary,#f3c7bd)] backdrop-blur-sm">
-        Inquiry flow
+        Scoping flow
       </div>
       <div className="pointer-events-none absolute bottom-5 right-5 rounded-full border border-[var(--page-accent,#f1b7aa)]/35 bg-black/20 px-3 py-1 text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-[var(--page-secondary,#f3c7bd)] backdrop-blur-sm">
         Email to scope

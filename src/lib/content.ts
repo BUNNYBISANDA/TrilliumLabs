@@ -482,7 +482,7 @@ export const navigation = [
   { href: "/services", label: "Services" },
   { href: "/growth-partnerships", label: "Partnerships" },
   { href: "/method", label: "Method" },
-  { href: "/contact", label: "Contact" },
+  { href: "/contact", label: "Scope a Call" },
 ];
 
 export const heroMetrics = [
@@ -501,7 +501,7 @@ export const contactOptions = [
   {
     title: "Email the team",
     body: "Send a brief and Trillium Labs can scope the right service or partnership.",
-    href: `mailto:${site.email}?subject=Trillium%20Labs%20project%20inquiry`,
+    href: `mailto:${site.email}?subject=Trillium%20Labs%20scope%20a%20call`,
     label: site.email,
     icon: Mail,
   },

@@ -11,13 +11,13 @@ export type PagePalette = {
   muted?: string;
   /** Optional value for the `data-theme` attribute on the page's PageTheme wrapper. */
   dataTheme?: string;
-  /** Optional page-scoped font overrides (CSS `var(--font-x)` references). Falls back to the site default (Inter / Geist Mono). */
+  /** Optional page-scoped font overrides (CSS `var(--font-x)` references). Falls back to the site default (Geist Sans / Geist Mono). */
   fontSans?: string;
   fontMono?: string;
 };
 
 // The single "Instrument" brand system (near-black canvas, Signal Amber accent,
-// Poppins + IBM Plex Mono) — shared by every page so the whole site reads as one identity.
+// Geist Sans + IBM Plex Mono) — shared by every page so the whole site reads as one identity.
 const instrument: PagePalette = {
   bg: "#060608",
   surface: "#0C0D10",
@@ -27,7 +27,7 @@ const instrument: PagePalette = {
   highlight: "#F2F6FF",
   muted: "#8A8F9C",
   dataTheme: "instrument",
-  fontSans: "var(--font-poppins)",
+  fontSans: "var(--font-geist-sans)",
   fontMono: "var(--font-plex-mono)",
 };
 
@@ -62,7 +62,13 @@ const routePalettes: Record<string, PagePalette> = {
 };
 
 export function getPaletteForPath(pathname: string): PagePalette | undefined {
-  return routePalettes[pathname];
+  if (routePalettes[pathname]) {
+    return routePalettes[pathname];
+  }
+  const match = Object.keys(routePalettes)
+    .filter((route) => route !== "/" && pathname.startsWith(`${route}/`))
+    .sort((a, b) => b.length - a.length)[0];
+  return match ? routePalettes[match] : undefined;
 }
 
 export function PageTheme({

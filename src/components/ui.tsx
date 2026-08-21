@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { ComponentPropsWithoutRef, CSSProperties, ReactNode } from "react";
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
 import { ArrowRight } from "lucide-react";
 import { Magnetic } from "@/components/motion";
 import { cn } from "@/lib/utils";
@@ -18,13 +18,10 @@ export function Section({
   className,
   style,
   children,
-}: {
-  className?: string;
-  style?: CSSProperties;
-  children: ReactNode;
-}) {
+  ...props
+}: ComponentPropsWithoutRef<"section">) {
   return (
-    <section style={style} className={cn("py-20 sm:py-24", className)}>
+    <section {...props} style={style} className={cn("py-20 sm:py-24", className)}>
       {children}
     </section>
   );

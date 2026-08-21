@@ -26,13 +26,13 @@ export function SiteFooter() {
     const body = [
       "Hi Trillium Labs,",
       "",
-      "I would like to start a project inquiry.",
+      "I would like to scope a call.",
       email ? `Reply email: ${email}` : "Reply email: Not provided",
     ].join("\n");
 
     setStatus("sent");
     window.location.href = `mailto:${site.email}?subject=${encodeURIComponent(
-      "Trillium Labs project inquiry",
+      "Trillium Labs scope a call",
     )}&body=${encodeURIComponent(body)}`;
   }
 
@@ -50,83 +50,85 @@ export function SiteFooter() {
         transition={motionTheme.transitions.gentle}
       />
 
-      <Container className="py-14">
-        <LightWordmark text={wordmark} glowColor={glowColor} />
+      <LightWordmark text={wordmark} glowColor={glowColor} />
 
-        <div className="grid gap-8 lg:grid-cols-[1.15fr_0.75fr_0.75fr_1fr]">
-          <div>
-            <p className="text-lg font-semibold text-white">{site.name}</p>
-            <p className="mt-3 max-w-md text-sm leading-6 text-slate-400">{site.description}</p>
-            <a
-              className="group mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[var(--page-secondary,#a7f3d0)]"
-              href={`mailto:${site.email}`}
-            >
-              {site.email}
-              <ArrowUpRight className="h-4 w-4 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-            </a>
-          </div>
-
-          <FooterLinks title="Explore" links={navigation} />
-          <FooterLinks
-            title="Services"
-            links={services.slice(0, 5).map((service) => ({
-              href: `/services/${service.slug}`,
-              label: service.shortTitle,
-            }))}
-          />
-
-          <InteractiveCard beam="hover">
-            <div className="rounded-lg border border-white/10 bg-white/[0.035] p-5">
-              <div className="flex items-center gap-3">
-                <span className="grid h-10 w-10 place-items-center rounded-md bg-[var(--page-accent,#6ee7b7)]/10 text-[var(--page-secondary,#a7f3d0)]">
-                  <Mail className="h-5 w-5" />
-                </span>
-                <div>
-                  <p className="text-sm font-semibold text-white">Quick inquiry</p>
-                  <p className="text-xs text-slate-500">Open a prefilled email</p>
-                </div>
-              </div>
-              <form className="mt-5 grid gap-3" onSubmit={handleSubmit}>
-                <input
-                  name="email"
-                  type="email"
-                  placeholder="you@company.com"
-                  className="min-h-11 rounded-md border border-white/10 bg-black/30 px-3 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-[var(--page-accent,#6ee7b7)]"
-                />
-                <button
-                  type="submit"
-                  className="relative min-h-11 overflow-hidden rounded-md bg-[var(--page-accent,#6ee7b7)] px-4 text-sm font-bold text-slate-950 transition hover:bg-[var(--page-secondary,#a7f3d0)]"
-                >
-                  <AnimatePresence mode="wait" initial={false}>
-                    <motion.span
-                      key={status}
-                      initial={{ y: 14, opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      exit={{ y: -14, opacity: 0 }}
-                      transition={motionTheme.transitions.ui}
-                      className="inline-flex items-center justify-center gap-2"
-                    >
-                      {status === "sent" ? (
-                        <>
-                          <Check className="h-4 w-4" />
-                          Email ready
-                        </>
-                      ) : (
-                        "Start inquiry"
-                      )}
-                    </motion.span>
-                  </AnimatePresence>
-                </button>
-              </form>
+      <div className="relative z-10">
+        <Container className="py-14">
+          <div className="grid gap-8 lg:grid-cols-[1.15fr_0.75fr_0.75fr_1fr]">
+            <div>
+              <p className="text-lg font-semibold text-white">{site.name}</p>
+              <p className="mt-3 max-w-md text-sm leading-6 text-slate-400">{site.description}</p>
+              <a
+                className="group mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[var(--page-secondary,#a7f3d0)]"
+                href={`mailto:${site.email}`}
+              >
+                {site.email}
+                <ArrowUpRight className="h-4 w-4 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              </a>
             </div>
-          </InteractiveCard>
-        </div>
-      </Container>
 
-      <Container className="flex flex-col gap-3 border-t border-white/10 py-6 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
-        <p>Copyright {currentYear} Trillium Labs. All services under one roof.</p>
-        <p>Performance marketing / Creative / Web / Automation</p>
-      </Container>
+            <FooterLinks title="Explore" links={navigation} />
+            <FooterLinks
+              title="Services"
+              links={services.slice(0, 5).map((service) => ({
+                href: `/services/${service.slug}`,
+                label: service.shortTitle,
+              }))}
+            />
+
+            <InteractiveCard beam="hover">
+              <div className="rounded-lg border border-white/10 bg-white/[0.035] p-5">
+                <div className="flex items-center gap-3">
+                  <span className="grid h-10 w-10 place-items-center rounded-md bg-[var(--page-accent,#6ee7b7)]/10 text-[var(--page-secondary,#a7f3d0)]">
+                    <Mail className="h-5 w-5" />
+                  </span>
+                  <div>
+                    <p className="text-sm font-semibold text-white">Scope a call</p>
+                    <p className="text-xs text-slate-500">Open a prefilled email</p>
+                  </div>
+                </div>
+                <form className="mt-5 grid gap-3" onSubmit={handleSubmit}>
+                  <input
+                    name="email"
+                    type="email"
+                    placeholder="you@company.com"
+                    className="min-h-11 rounded-md border border-white/10 bg-black/30 px-3 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-[var(--page-accent,#6ee7b7)]"
+                  />
+                  <button
+                    type="submit"
+                    className="relative min-h-11 overflow-hidden rounded-md bg-[var(--page-accent,#6ee7b7)] px-4 text-sm font-bold text-slate-950 transition hover:bg-[var(--page-secondary,#a7f3d0)]"
+                  >
+                    <AnimatePresence mode="wait" initial={false}>
+                      <motion.span
+                        key={status}
+                        initial={{ y: 14, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        exit={{ y: -14, opacity: 0 }}
+                        transition={motionTheme.transitions.ui}
+                        className="inline-flex items-center justify-center gap-2"
+                      >
+                        {status === "sent" ? (
+                          <>
+                            <Check className="h-4 w-4" />
+                            Email ready
+                          </>
+                        ) : (
+                          "Scope it"
+                        )}
+                      </motion.span>
+                    </AnimatePresence>
+                  </button>
+                </form>
+              </div>
+            </InteractiveCard>
+          </div>
+        </Container>
+
+        <Container className="flex flex-col gap-3 border-t border-white/10 py-6 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
+          <p>Copyright {currentYear} Trillium Labs. All services under one roof.</p>
+          <p>Performance marketing / Creative / Web / Automation</p>
+        </Container>
+      </div>
     </footer>
   );
 }
@@ -137,7 +139,7 @@ function LightWordmark({ text, glowColor }: { text: string; glowColor: [number, 
   return (
     <motion.div
       aria-label={text}
-      className="mb-12 flex max-w-full flex-nowrap overflow-hidden whitespace-nowrap text-[clamp(2.7rem,10.5vw,9rem)] font-black leading-none tracking-normal"
+      className="pointer-events-none absolute left-1/2 top-10 z-0 flex max-w-full -translate-x-1/2 select-none flex-nowrap overflow-hidden whitespace-nowrap text-[clamp(2.5rem,10vw,9rem)] font-black leading-none tracking-normal sm:top-14"
       initial={false}
       whileInView="visible"
       viewport={{ once: true, margin: "-120px" }}

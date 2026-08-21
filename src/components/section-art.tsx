@@ -16,7 +16,7 @@ function ArtFrame({ className, children }: { className?: string; children: React
       >
         <defs>
           <pattern id="art-grid" width="28" height="28" patternUnits="userSpaceOnUse">
-            <path d="M28 0H0V28" fill="none" stroke="#6ee7b7" strokeWidth="1" />
+            <path d="M28 0H0V28" fill="none" stroke="var(--page-accent, #6ee7b7)" strokeWidth="1" />
           </pattern>
         </defs>
         <rect width="100%" height="100%" fill="url(#art-grid)" />
@@ -26,11 +26,9 @@ function ArtFrame({ className, children }: { className?: string; children: React
   );
 }
 
-const stroke = "#6ee7b7";
-const strokeDim = "rgba(110,231,183,0.35)";
+const stroke = "var(--page-accent, #6ee7b7)";
+const strokeDim = "color-mix(in srgb, var(--page-accent, #6ee7b7) 35%, transparent)";
 const faint = "rgba(255,255,255,0.12)";
-const themedStroke = "var(--page-accent, #6ee7b7)";
-const themedStrokeDim = "color-mix(in srgb, var(--page-accent, #6ee7b7) 35%, transparent)";
 const themedFill = "color-mix(in srgb, var(--page-accent, #6ee7b7) 10%, transparent)";
 
 export function DashboardArt(props: SVGProps<SVGSVGElement> & { className?: string }) {
@@ -38,7 +36,7 @@ export function DashboardArt(props: SVGProps<SVGSVGElement> & { className?: stri
   return (
     <ArtFrame className={className}>
       <svg viewBox="0 0 400 260" className="relative h-full w-full" {...rest}>
-        <rect x="20" y="24" width="150" height="26" rx="6" fill="rgba(110,231,183,0.12)" />
+        <rect x="20" y="24" width="150" height="26" rx="6" fill={themedFill} />
         <text x="34" y="41" fontSize="12" fill={stroke} fontFamily="monospace">
           CAMPAIGN REACH
         </text>
@@ -56,7 +54,7 @@ export function DashboardArt(props: SVGProps<SVGSVGElement> & { className?: stri
         />
         <polygon
           points="30,170 80,150 130,160 180,110 230,120 280,70 330,85 380,50 380,200 30,200"
-          fill="rgba(110,231,183,0.08)"
+          fill={themedFill}
         />
         {[
           [30, 170],
@@ -92,14 +90,14 @@ export function BrowserArt(props: SVGProps<SVGSVGElement> & { className?: string
         <circle cx="48" cy="33" r="4" fill="rgba(255,255,255,0.25)" />
         <circle cx="62" cy="33" r="4" fill="rgba(255,255,255,0.25)" />
         <rect x="90" y="27" width="180" height="12" rx="6" fill="rgba(255,255,255,0.06)" />
-        <rect x="38" y="66" width="150" height="14" rx="3" fill="rgba(110,231,183,0.5)" />
+        <rect x="38" y="66" width="150" height="14" rx="3" fill="color-mix(in srgb, var(--page-accent, #6ee7b7) 50%, transparent)" />
         <rect x="38" y="88" width="220" height="8" rx="3" fill={faint} />
         <rect x="38" y="102" width="180" height="8" rx="3" fill={faint} />
         <rect x="38" y="122" width="70" height="24" rx="6" fill={stroke} />
         {[38, 148, 258].map((x) => (
           <g key={x}>
             <rect x={x} y="168" width="94" height="66" rx="6" fill="rgba(255,255,255,0.04)" stroke={faint} />
-            <rect x={x + 10} y="178" width="40" height="6" rx="3" fill="rgba(110,231,183,0.45)" />
+            <rect x={x + 10} y="178" width="40" height="6" rx="3" fill="color-mix(in srgb, var(--page-accent, #6ee7b7) 45%, transparent)" />
             <rect x={x + 10} y="192" width="74" height="6" rx="3" fill={faint} />
             <rect x={x + 10} y="204" width="60" height="6" rx="3" fill={faint} />
           </g>
@@ -132,7 +130,7 @@ export function ContentGridArt(props: SVGProps<SVGSVGElement> & { className?: st
               width={tile.w}
               height={tile.h}
               rx="8"
-              fill={index % 3 === 0 ? "rgba(110,231,183,0.1)" : "rgba(255,255,255,0.035)"}
+              fill={index % 3 === 0 ? "color-mix(in srgb, var(--page-accent, #6ee7b7) 10%, transparent)" : "rgba(255,255,255,0.035)"}
               stroke={faint}
             />
             {tile.play ? (
@@ -167,7 +165,7 @@ export function ChatArt(props: SVGProps<SVGSVGElement> & { className?: string })
         <rect x="82" y="32" width="90" height="7" rx="3.5" fill="rgba(255,255,255,0.5)" />
         <rect x="82" y="44" width="150" height="6" rx="3" fill={faint} />
 
-        <rect x="90" y="76" width="220" height="46" rx="18" fill={themedFill} stroke={themedStrokeDim} />
+        <rect x="90" y="76" width="220" height="46" rx="18" fill={themedFill} stroke={strokeDim} />
         <rect x="108" y="90" width="184" height="7" rx="3.5" fill="rgba(255,255,255,0.55)" />
         <rect x="108" y="103" width="120" height="6" rx="3" fill={themedFill} />
 
@@ -177,7 +175,7 @@ export function ChatArt(props: SVGProps<SVGSVGElement> & { className?: string })
 
         <g transform="translate(0,200)">
           <circle cx="60" cy="20" r="16" fill="rgba(255,255,255,0.04)" stroke={faint} />
-          <path d="M53 20l5 5 9-11" fill="none" stroke={themedStroke} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M53 20l5 5 9-11" fill="none" stroke={stroke} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           <circle cx="120" cy="20" r="16" fill="rgba(255,255,255,0.04)" stroke={faint} />
           <path
             d="M112 22c2 4 5 6 8 6s6-2 8-6"
@@ -186,8 +184,8 @@ export function ChatArt(props: SVGProps<SVGSVGElement> & { className?: string })
             strokeWidth="2"
             strokeLinecap="round"
           />
-          <rect x="220" y="4" width="140" height="32" rx="16" fill={themedFill} stroke={themedStrokeDim} />
-          <text x="238" y="25" fontFamily="monospace" fontSize="12" fill={themedStroke}>
+          <rect x="220" y="4" width="140" height="32" rx="16" fill={themedFill} stroke={strokeDim} />
+          <text x="238" y="25" fontFamily="monospace" fontSize="12" fill={stroke}>
             +2.4k engagements
           </text>
         </g>
@@ -232,7 +230,7 @@ export function FlowArt(props: SVGProps<SVGSVGElement> & { className?: string })
               cx={node.x}
               cy={node.y}
               r="26"
-              fill={index === 0 || index === 4 ? "rgba(110,231,183,0.16)" : "rgba(255,255,255,0.04)"}
+              fill={index === 0 || index === 4 ? "color-mix(in srgb, var(--page-accent, #6ee7b7) 16%, transparent)" : "rgba(255,255,255,0.04)"}
               stroke={index === 0 || index === 4 ? stroke : faint}
               strokeWidth="1.5"
             />
@@ -260,21 +258,21 @@ export function PulseArt(props: SVGProps<SVGSVGElement> & { className?: string }
       <svg viewBox="0 0 400 260" className="relative h-full w-full" {...rest}>
         <g transform="translate(200,130)">
           {[110, 78, 46].map((r) => (
-            <circle key={r} r={r} fill="none" stroke={themedStrokeDim} strokeWidth="1" />
+            <circle key={r} r={r} fill="none" stroke={strokeDim} strokeWidth="1" />
           ))}
-          <circle r="8" fill={themedStroke} />
+          <circle r="8" fill={stroke} />
           {[
             [96, -20],
             [-70, 40],
             [50, 78],
             [-96, -18],
           ].map(([x, y], index) => (
-            <circle key={index} cx={x} cy={y} r="5" fill={themedStroke} opacity={0.7} />
+            <circle key={index} cx={x} cy={y} r="5" fill={stroke} opacity={0.7} />
           ))}
-          <line x1="0" y1="0" x2="96" y2="-20" stroke={themedStrokeDim} strokeWidth="1" />
-          <line x1="0" y1="0" x2="-70" y2="40" stroke={themedStrokeDim} strokeWidth="1" />
-          <line x1="0" y1="0" x2="50" y2="78" stroke={themedStrokeDim} strokeWidth="1" />
-          <line x1="0" y1="0" x2="-96" y2="-18" stroke={themedStrokeDim} strokeWidth="1" />
+          <line x1="0" y1="0" x2="96" y2="-20" stroke={strokeDim} strokeWidth="1" />
+          <line x1="0" y1="0" x2="-70" y2="40" stroke={strokeDim} strokeWidth="1" />
+          <line x1="0" y1="0" x2="50" y2="78" stroke={strokeDim} strokeWidth="1" />
+          <line x1="0" y1="0" x2="-96" y2="-18" stroke={strokeDim} strokeWidth="1" />
         </g>
       </svg>
     </ArtFrame>

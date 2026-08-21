@@ -34,7 +34,7 @@ export function ContactForm() {
     const body = [
       "Hi Trillium Labs,",
       "",
-      "I would like to discuss a project.",
+      "I would like to scope a call.",
       "",
       `Name: ${name || "Not provided"}`,
       `Company: ${company || "Not provided"}`,
@@ -44,7 +44,7 @@ export function ContactForm() {
       brief || "Not provided",
     ].join("\n");
 
-    const subject = encodeURIComponent("Trillium Labs project inquiry");
+    const subject = encodeURIComponent("Trillium Labs scope a call");
     window.location.href = `mailto:${site.email}?subject=${subject}&body=${encodeURIComponent(body)}`;
   }
 
@@ -96,7 +96,7 @@ export function ContactForm() {
         disabled={state === "submitting"}
         className="min-h-12 rounded-md bg-[var(--page-accent,#6ee7b7)] px-5 text-sm font-bold text-slate-950 transition hover:bg-[var(--page-secondary,#a7f3d0)] focus:outline-none focus:ring-2 focus:ring-[var(--page-accent,#6ee7b7)] focus:ring-offset-2 focus:ring-offset-black disabled:cursor-not-allowed disabled:opacity-60"
       >
-        {state === "submitting" ? "Sending..." : "Send inquiry"}
+        {state === "submitting" ? "Sending..." : "Scope it"}
       </button>
       {state === "success" ? (
         <p className="text-sm text-[var(--page-accent,#6ee7b7)]">
@@ -105,7 +105,7 @@ export function ContactForm() {
       ) : null}
       {state === "error" ? (
         <p className="text-sm text-amber-300">
-          We couldn&apos;t save the brief automatically, but your email app is opening so the inquiry still gets to us.
+          We couldn&apos;t save the brief automatically, but your email app is opening so the scope still gets to us.
         </p>
       ) : null}
     </form>

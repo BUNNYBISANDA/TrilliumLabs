@@ -14,11 +14,11 @@ export function CtaBand() {
             </h2>
           </div>
           <ButtonLink
-            href={`mailto:${site.email}?subject=Trillium%20Labs%20project%20inquiry`}
+            href={`mailto:${site.email}?subject=Trillium%20Labs%20scope%20a%20call`}
             variant="secondary"
             className="border-slate-950/20 bg-slate-950 text-white hover:bg-slate-900"
           >
-            Email Trillium Labs
+            Scope a call
           </ButtonLink>
         </Container>
       </InteractiveCard>

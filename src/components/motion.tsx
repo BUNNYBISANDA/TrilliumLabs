@@ -3,7 +3,6 @@
 import {
   AnimatePresence,
   motion,
-  useMotionTemplate,
   useMotionValue,
   useReducedMotion,
   useScroll,
@@ -11,8 +10,10 @@ import {
   useTransform,
   useInView,
 } from "motion/react";
-import type { MouseEvent, ReactNode } from "react";
+import type { CSSProperties, MouseEvent, ReactNode } from "react";
 import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
+import { getPaletteForPath } from "@/components/page-theme";
 import { cn } from "@/lib/utils";
 
 export const motionTheme = {
@@ -20,6 +21,8 @@ export const motionTheme = {
     snap: { type: "spring", stiffness: 1218, damping: 70 },
     ui: { type: "spring", stiffness: 305, damping: 33 },
     gentle: { type: "spring", stiffness: 110, damping: 20 },
+    reveal: { duration: 0.5, ease: "easeOut" },
+    page: { duration: 0.24, ease: "easeOut" },
     lively: { type: "spring", stiffness: 622, damping: 17 },
     ambient: { type: "spring", stiffness: 43, damping: 13 },
   },
@@ -34,12 +37,14 @@ type RevealProps = {
 };
 
 export function Reveal({ children, className, delay = 0 }: RevealProps) {
+  const reduceMotion = useReducedMotion();
+
   return (
     <motion.div
-      initial={false}
-      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ ...motionTheme.transitions.gentle, delay }}
+      initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+      whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-64px", amount: 0.18 }}
+      transition={{ ...motionTheme.transitions.reveal, delay }}
       className={className}
     >
       {children}
@@ -82,11 +87,17 @@ export function StaggerText({ text, className }: { text: string; className?: str
 export function ScrollProgress() {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, motionTheme.transitions.ui);
+  const pathname = usePathname();
+  const palette = getPaletteForPath(pathname);
 
   return (
     <motion.div
-      className="fixed left-0 top-0 z-[60] h-0.5 origin-left bg-emerald-300"
-      style={{ scaleX, width: "100%" }}
+      className="fixed left-0 top-0 z-[60] h-0.5 origin-left bg-[var(--page-accent,#6ee7b7)]"
+      style={{
+        scaleX,
+        width: "100%",
+        ...(palette ? ({ "--page-accent": palette.accent } as CSSProperties) : {}),
+      }}
       aria-hidden="true"
     />
   );
@@ -133,29 +144,17 @@ export function InteractiveCard({
   beam?: "hover" | "always" | "none";
 }) {
   const reduceMotion = useReducedMotion();
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const background = useMotionTemplate`radial-gradient(360px circle at ${mouseX}px ${mouseY}px, color-mix(in srgb, var(--page-accent, #6ee7b7) 16%, transparent), transparent 44%)`;
-
-  function handleMove(event: MouseEvent<HTMLDivElement>) {
-    const rect = event.currentTarget.getBoundingClientRect();
-    mouseX.set(event.clientX - rect.left);
-    mouseY.set(event.clientY - rect.top);
-  }
 
   return (
     <motion.div
       layout
-      onMouseMove={handleMove}
-      whileHover={reduceMotion ? undefined : { y: -6, scale: 1.01 }}
-      whileTap={reduceMotion ? undefined : { scale: 0.985 }}
-      transition={motionTheme.transitions.ui}
-      className={cn("group relative overflow-hidden rounded-lg", className)}
+      whileHover={reduceMotion ? undefined : { y: -4 }}
+      transition={{ duration: 0.22, ease: "easeOut" }}
+      className={cn(
+        "group relative rounded-lg transition-[background-color,box-shadow] duration-[220ms] ease-out hover:bg-white/[0.015] hover:shadow-[0_14px_34px_rgba(0,0,0,0.24)]",
+        className,
+      )}
     >
-      <motion.div
-        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-        style={{ background }}
-      />
       {beam !== "none" ? <BorderBeam persistent={beam === "always"} /> : null}
       <div className="relative h-full">{children}</div>
     </motion.div>
@@ -163,26 +162,15 @@ export function InteractiveCard({
 }
 
 export function BorderBeam({ persistent = false }: { persistent?: boolean }) {
-  const reduceMotion = useReducedMotion();
-
   return (
-    <motion.div
+    <div
       aria-hidden="true"
       className={cn(
-        "pointer-events-none absolute inset-0 rounded-lg",
-        persistent ? "opacity-100" : "opacity-0 group-hover:opacity-100",
+        "pointer-events-none absolute inset-0 rounded-lg border transition-colors duration-[220ms] ease-out",
+        persistent
+          ? "border-white/[0.14] group-hover:border-white/[0.24]"
+          : "border-transparent group-hover:border-white/[0.18]",
       )}
-      style={{
-        background:
-          "conic-gradient(from 0deg, transparent, transparent, color-mix(in srgb, var(--page-accent, #6ee7b7) 80%, transparent), transparent, transparent)",
-        padding: 1,
-        mask: "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
-        WebkitMask: "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
-        maskComposite: "exclude",
-        WebkitMaskComposite: "xor",
-      }}
-      animate={reduceMotion ? undefined : { rotate: 360 }}
-      transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
     />
   );
 }
@@ -201,7 +189,7 @@ export function FloatingGrid() {
         y: reduceMotion ? 0 : y,
         opacity,
         backgroundImage:
-          "linear-gradient(rgba(110,231,183,0.18) 1px, transparent 1px), linear-gradient(90deg, rgba(110,231,183,0.18) 1px, transparent 1px)",
+          "linear-gradient(color-mix(in srgb, var(--page-accent, #6ee7b7) 18%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--page-accent, #6ee7b7) 18%, transparent) 1px, transparent 1px)",
         backgroundSize: "72px 72px",
         maskImage: "linear-gradient(to bottom, transparent, black 18%, black 65%, transparent)",
       }}
